@@ -46,11 +46,12 @@ public class S3TestRead {
                     .parallel()
                     .forEach(
                             x -> {
-
+                                StringBuilder sb = new StringBuilder(x.toString());
+                                String key = sb.reverse().toString();
                                 File teamsFile = new File(x + "-teams.json");
                                 GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                                         .bucket("s3test-xxx")
-                                        .key(x.toString())
+                                        .key(key)
                                         .build();
 
 

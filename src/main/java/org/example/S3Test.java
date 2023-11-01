@@ -57,11 +57,13 @@ public class S3Test {
                                 //writeToS3(basePath, s3, mapper, teamList);
                                 File teamsFile = new File(x + "-teams.json");
                                 try {
+                                    StringBuilder sb = new StringBuilder(x.toString());
+                                    String objectKey = sb.reverse().toString();
                                     String stringJson = mapper.writeValueAsString(teamList);
                                     mapper.writeValue(teamsFile, stringJson);
                                     PutObjectRequest objectRequest = PutObjectRequest.builder()
                                             .bucket("s3test-xxx")
-                                            .key(x.toString())
+                                            .key(objectKey)
                                             .build();
 
                                     CompletableFuture<PutObjectResponse> future = client.putObject(objectRequest,
