@@ -2,15 +2,15 @@ package org.example;
 
 public class Team {
 
-    public Double getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Double userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    Double userId;
+    String userId;
 
     public int getPlayer1() {
         return player1;
