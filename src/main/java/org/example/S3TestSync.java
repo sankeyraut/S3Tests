@@ -1,31 +1,20 @@
 package org.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import software.amazon.awssdk.core.async.AsyncRequestBody;
-import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
-import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ChecksumAlgorithm;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.IntStream;
 
 public class S3TestSync {
-    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
-        int roundId = 12345;
+    public static void main(String[] args) throws  InterruptedException, URISyntaxException {
+
 
         ObjectMapper mapper = new ObjectMapper();
         URI myURI = new URI("https://s3express-usw2-az1.us-west-2.amazonaws.com");
@@ -36,27 +25,13 @@ public class S3TestSync {
                 .build();
 
         class S3Write implements Runnable {
-            String key;
+            final String key;
             S3Write(String s) { key = s; }
             public void run() {
-                ArrayList<Team> teamList = new ArrayList<Team>();
-                Team teams1 = new Team();
-                teams1.setPlayer1(1);
-                teams1.setPlayer2(2);
-                teams1.setPlayer3(3);
-                teams1.setPlayer4(4);
-                teams1.setPlayer5(5);
-                teams1.setPlayer6(6);
-                teams1.setPlayer7(7);
-                teams1.setPlayer8(8);
-                teams1.setPlayer9(9);
-                teams1.setPlayer10(10);
-                teams1.setPlayer11(11);
-                teams1.setUserId(key.toString());
-                teamList.add(teams1);
+                ArrayList<Team> teamList = getTeams();
                 //writeToS3(basePath, s3, mapper, teamList);
                 File teamsFile = new File(key + "-teams.json");
-                String stringJson = null;
+                String stringJson ;
                 try {
                     stringJson = mapper.writeValueAsString(teamList);
                     mapper.writeValue(teamsFile, stringJson);
@@ -70,17 +45,34 @@ public class S3TestSync {
                     long end = System.nanoTime();
                     System.out.println("Thread " + Thread.currentThread().getName() + " completed in "+ (end-start)/1000000 +" milliseconds");
 
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+            }
+
+            private ArrayList<Team> getTeams() {
+                ArrayList<Team> teamList = new ArrayList<>();
+                Team team = new Team();
+                team.setPlayer1(1);
+                team.setPlayer2(2);
+                team.setPlayer3(3);
+                team.setPlayer4(4);
+                team.setPlayer5(5);
+                team.setPlayer6(6);
+                team.setPlayer7(7);
+                team.setPlayer8(8);
+                team.setPlayer9(9);
+                team.setPlayer10(10);
+                team.setPlayer11(11);
+                team.setUserId(key);
+                teamList.add(team);
+                return teamList;
             }
         }
 
         Thread.Builder builder = Thread.ofVirtual().name("S3 Write", 0);
 
-        Thread thread1 = null;
+        Thread thread1 ;
         ArrayList<Thread> threads = new ArrayList<>();
         for(int i=0;i<50;i++){
             thread1 = builder.start(new S3Write(i+""));
