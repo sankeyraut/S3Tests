@@ -42,7 +42,7 @@ public class S3TestReadSync {
                 long start = System.nanoTime();
                 client.getObject(objectRequest,teamsFile.toPath());
                 long end = System.nanoTime();
-                System.out.println("Thread " + Thread.currentThread().getName() + " completed in "+ (end-start));
+                System.out.println("Thread " + Thread.currentThread().getName() + " completed in "+ (end-start)/1000000+" milliseconds");
 
             }
         }

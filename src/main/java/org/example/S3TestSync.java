@@ -68,7 +68,7 @@ public class S3TestSync {
                     long start = System.nanoTime();
                     client.putObject(objectRequest,teamsFile.toPath());
                     long end = System.nanoTime();
-                    System.out.println("Thread " + Thread.currentThread().getName() + " completed in "+ (end-start));
+                    System.out.println("Thread " + Thread.currentThread().getName() + " completed in "+ (end-start)/1000000 +" milliseconds");
 
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException(e);
