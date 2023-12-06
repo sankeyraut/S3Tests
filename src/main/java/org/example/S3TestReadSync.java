@@ -1,5 +1,6 @@
 package org.example;
 
+import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
@@ -14,11 +15,13 @@ public class S3TestReadSync {
     public static void main(String[] args) throws  InterruptedException, URISyntaxException {
 
 
-
+        InstanceProfileCredentialsProvider awsCredProvider =InstanceProfileCredentialsProvider.builder().build();
         URI myURI = new URI("https://s3express-usw2-az1.us-west-2.amazonaws.com");
         S3Client client = S3Client.builder()
                 .region(Region.US_WEST_2)
                 .endpointOverride(myURI)
+                .credentialsProvider(awsCredProvider)
+                //.credentialsProvider()
                 .build();
 
         HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
