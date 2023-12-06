@@ -20,8 +20,7 @@ public class S3TestReadSync {
         S3Client client = S3Client.builder()
                 .region(Region.US_WEST_2)
                 .endpointOverride(myURI)
-                .credentialsProvider(awsCredProvider)
-                //.credentialsProvider()
+                //.credentialsProvider(awsCredProvider)
                 .build();
 
         HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
