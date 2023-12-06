@@ -24,6 +24,14 @@ public class S3TestReadSync {
         HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
         client.headBucket(headRequest);
         System.out.println("Connected to " + Constants.BUCKET_NAME);
+        File teamsFile = new File( "0-teams.json");
+        GetObjectRequest objectRequest = GetObjectRequest.builder()
+                .bucket(Constants.BUCKET_NAME)
+                .key("0")
+                .build();
+        client.getObject(objectRequest,teamsFile.toPath());
+        System.out.println("First Object Read from " + Constants.BUCKET_NAME);
+
 
         Thread.Builder builder = Thread.ofVirtual().name("S3 Read", 0);
         class S3Read implements Runnable {
