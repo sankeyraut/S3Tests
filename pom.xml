@@ -184,7 +184,14 @@
                         <configuration>
                             <fallback>false</fallback>
                             <buildArgs>
-                                <arg>-H:+UnlockExperimentalVMOptions -H:DashboardDump=S3test -H:+DashboardAll -H:TraceClassInitialization=true --initialize-at-build-time=org.slf4j.LoggerFactory --enable-url-protocols=http</arg>
+                                <arg>
+                                    -H:+UnlockExperimentalVMOptions
+                                    -H:DashboardDump=S3test
+                                    -H:+DashboardAll
+                                    -H:TraceClassInitialization=true
+                                    --initialize-at-build-time=org.slf4j.LoggerFactory
+                                    --enable-url-protocols=http
+                                </arg>
                             </buildArgs>
                             <agent>
                                 <enabled>true</enabled>
