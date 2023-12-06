@@ -31,6 +31,11 @@ public class S3TestReadSync {
                 .build();
         client.getObject(objectRequest,teamsFile.toPath());
         System.out.println("First Object Read from " + Constants.BUCKET_NAME);
+        boolean deleted = teamsFile.delete();
+        if(deleted)
+        {
+            System.out.println("File Deleted");
+        }
 
 
         Thread.Builder builder = Thread.ofVirtual().name("S3 Read", 0);
