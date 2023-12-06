@@ -1,12 +1,11 @@
 package org.example;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -22,7 +21,8 @@ public class S3TestReadSync {
                 .endpointOverride(myURI)
                 .build();
 
-
+        HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
+        client.headBucket(headRequest);
 
         Thread.Builder builder = Thread.ofVirtual().name("S3 Read", 0);
         class S3Read implements Runnable {
@@ -52,6 +52,7 @@ public class S3TestReadSync {
         for (Thread thread : threads) {
             thread.join();
         }
+        client.close();
 
 
     }

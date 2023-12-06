@@ -3,6 +3,7 @@ package org.example;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
 
 import java.io.File;
 import java.net.URI;
@@ -18,6 +19,9 @@ public class S3TestReadSingleThread {
                 .endpointOverride(myURI)
                 .build();
 
+        HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
+        client.headBucket(headRequest);
+
 
         for(int i=0;i<50;i++){
             File teamsFile = new File(i + "-teams.json");
@@ -32,6 +36,7 @@ public class S3TestReadSingleThread {
 
 
         }
+        client.close();
 
 
 
