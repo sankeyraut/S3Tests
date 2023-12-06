@@ -21,7 +21,7 @@ public class S3TestReadSingleThread {
 
         HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
         client.headBucket(headRequest);
-
+        System.out.println("Connected to " + Constants.BUCKET_NAME);
 
         for(int i=0;i<50;i++){
             File teamsFile = new File(i + "-teams.json");

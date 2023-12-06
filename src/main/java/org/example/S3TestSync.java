@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ChecksumAlgorithm;
+import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.File;
@@ -23,6 +24,10 @@ public class S3TestSync {
                 .region(Region.US_WEST_2)
                 .endpointOverride(myURI)
                 .build();
+
+        HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
+        client.headBucket(headRequest);
+        System.out.println("Connected to " + Constants.BUCKET_NAME);
 
         class S3Write implements Runnable {
             final String key;

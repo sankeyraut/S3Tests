@@ -23,6 +23,7 @@ public class S3TestReadSync {
 
         HeadBucketRequest headRequest = HeadBucketRequest.builder().bucket(Constants.BUCKET_NAME).build();
         client.headBucket(headRequest);
+        System.out.println("Connected to " + Constants.BUCKET_NAME);
 
         Thread.Builder builder = Thread.ofVirtual().name("S3 Read", 0);
         class S3Read implements Runnable {
