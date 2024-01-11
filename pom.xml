@@ -13,7 +13,7 @@
         <maven.compiler.source>${java.specification.version}</maven.compiler.source>
         <maven.compiler.target>${java.specification.version}</maven.compiler.target>
         <imageName>s3test</imageName>
-        <mainClass>org.example.VirtualThreadTest</mainClass>
+        <mainClass>org.example.S3TestReadSync</mainClass>
         <aws.sdk.version>2.23.0</aws.sdk.version>
     </properties>
     <dependencyManagement>
