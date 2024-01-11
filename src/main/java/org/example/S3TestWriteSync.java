@@ -53,7 +53,7 @@ public class S3TestWriteSync {
 
     private static void runThreads( Thread.Builder builder, S3Client client, ArrayList<Thread> threads) throws InterruptedException {
         Thread thread;
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 250; i++) {
             thread = builder.start(new S3Write(i + "", client));
             threads.add(thread);
 
