@@ -1,10 +1,12 @@
 package org.example;
 
 import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
+import software.amazon.awssdk.http.SdkHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-
+import software.amazon.awssdk.http.crt.AwsCrtHttpClient;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class S3TestReadSync {
@@ -13,10 +15,14 @@ public class S3TestReadSync {
 
         //InstanceProfileCredentialsProvider awsCredProvider =InstanceProfileCredentialsProvider.builder().build();
         //URI myURI = new URI("https://s3express-usw2-az1.us-west-2.amazonaws.com");
+        SdkHttpClient crtHttpClient = AwsCrtHttpClient.builder()
+                .connectionTimeout(Duration.ofSeconds(3))
+                .maxConcurrency(100)
+                .build();
+
         S3Client client = S3Client.builder()
+                .httpClient(crtHttpClient)
                 .region(Region.US_WEST_2)
-                //.endpointOverride(myURI)
-                //.credentialsProvider(awsCredProvider)
                 .build();
 
         Thread.Builder builder = Thread.ofVirtual().name("S3 Read", 0);
