@@ -1,17 +1,17 @@
 package org.example;
 
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.awscore.defaultsmode.DefaultsMode;
-import software.amazon.awssdk.http.SdkHttpClient;
-import software.amazon.awssdk.http.crt.AwsCrtHttpClient;
+//import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+//import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
+//import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+//import software.amazon.awssdk.awscore.defaultsmode.DefaultsMode;
+//import software.amazon.awssdk.http.SdkHttpClient;
+//import software.amazon.awssdk.http.crt.AwsCrtHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import java.time.Duration;
+//import java.time.Duration;
 
 import java.net.URISyntaxException;
-import java.time.Duration;
+//import java.time.Duration;
 import java.util.ArrayList;
 
 public class S3TestWriteSync {
@@ -21,7 +21,7 @@ public class S3TestWriteSync {
         //InstanceProfileCredentialsProvider awsCredProvider =InstanceProfileCredentialsProvider.builder().build();
         //URI myURI = new URI("https://s3express-usw2-az1.us-west-2.amazonaws.com");
 
-        SdkHttpClient crtHttpClient = AwsCrtHttpClient.builder()
+        /*SdkHttpClient crtHttpClient = AwsCrtHttpClient.builder()
                 .connectionTimeout(Duration.ofSeconds(3))
                 .maxConcurrency(100)
                 .build();
@@ -29,14 +29,14 @@ public class S3TestWriteSync {
         S3Client client = S3Client.builder()
                 .httpClient(crtHttpClient)
                 .region(Region.US_WEST_2)
-                .build();
+                .build();*/
 
 
-        /*S3Client client = S3Client.builder()
+        S3Client client = S3Client.builder()
                 .region(Region.US_WEST_2)
                 //.endpointOverride(myURI)
                 //.credentialsProvider(awsCredProvider)
-                .build();*/
+                .build();
 
         Thread.Builder builder = Thread.ofVirtual().name("S3 Write", 0);
 
